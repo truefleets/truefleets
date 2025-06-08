@@ -16,4 +16,4 @@ func checkCameraPermission() {
     @unknown default:
         break
     }
-}
+} 
