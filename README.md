@@ -1,12 +1,19 @@
-- 👋 Hi, I’m @truefleets
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
+import AVFoundation
 
-<!---
-truefleets/truefleets is a ✨ special ✨ repository because its `README.md` (back camera) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+func checkCameraPermission() {
+    let cameraStatus = AVCaptureDevice.authorizationStatus(for: .video)
+    switch cameraStatus {
+    case .authorized:
+        openCamera()
+    case .notDetermined:
+        AVCaptureDevice.requestAccess(for: .video) { granted in
+            if granted {
+                self.openCamera()
+            }
+        }
+    case .denied, .restricted:
+        print("Camera access denied")
+    @unknown default:
+        break
+    }
+}
